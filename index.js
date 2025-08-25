@@ -1,10 +1,9 @@
-﻿const express = require('express');
+const express = require('express');
 const app = express();
 app.use(express.json());
 
 let webhooks = [];
 
-// Receive webhooks from Zapier
 app.post('/webhook', (req, res) => {
   webhooks.push({
     timestamp: new Date(),
@@ -14,7 +13,6 @@ app.post('/webhook', (req, res) => {
   res.json({ success: true });
 });
 
-// n8n polls this endpoint
 app.get('/webhooks', (req, res) => {
   const temp = webhooks;
   webhooks = [];
@@ -22,4 +20,4 @@ app.get('/webhooks', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(Running on port ));
+app.listen(PORT, () => console.log('Running on port ' + PORT));
